@@ -1,0 +1,19 @@
+<div ng-controller="MainCtrl as ctrl" ng-cloak>
+	<md-list layout-padding>
+		<md-subheader>
+			<div layout="row">
+				<div flex="10">#</div>
+				<div flex="50">Title</div>
+				<div flex="33">Difficulty</div>
+				<div flex="10">Completed</div>
+			</div>
+		</md-subheader>
+		<md-divider></md-divider>
+		<md-list-item ng-repeat="problem in ctrl.problems" ng-click="ctrl.goTo(problem.index-1)">
+				<div flex="10" >{{problem.index}}</div>
+				<div flex="50">{{problem.title}}</div>
+				<div flex="33">{{problem.difficulty}}</div>
+				<div flex="10">No</div>
+		</md-list-item>
+	</md-list>
+</div>

@@ -1,25 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="utf-8" />
-  <title>Ionic App</title>
-
-  <base href="/" />
-
-  <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta name="format-detection" content="telephone=no" />
-  <meta name="msapplication-tap-highlight" content="no" />
-
-  <link rel="icon" type="image/png" href="assets/icon/favicon.png" />
-
-  <!-- add to homescreen for ios -->
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-</head>
-
-<body>
-  <app-root></app-root>
-<script src="runtime-es2015.js" type="module"></script><script src="polyfills-es2015.js" type="module"></script><script src="runtime-es5.js" nomodule></script><script src="polyfills-es5.js" nomodule></script><script src="styles-es2015.js" type="module"></script><script src="styles-es5.js" nomodule></script><script src="vendor-es2015.js" type="module"></script><script src="main-es2015.js" type="module"></script><script src="vendor-es5.js" nomodule></script><script src="main-es5.js" nomodule></script></body>
-
+<html>
+	<script src="./angular/angular/angular.js"></script>
+	<script src="./angular/angular-animate/angular-animate.js"></script>
+	<script src="./angular/angular-aria/angular-aria.js"></script>
+	<script src="./angular/angular-material/angular-material.js"></script>
+	<script src="./angular/angular-ui-router/release/angular-ui-router.js"></script>
+	<script src="./angular/angular-resource/angular-resource.js"></script>	
+	
+	<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.19/angular-material.min.css">
+	
+	<script type="text/javascript" src="./app/app.js"></script>
+	<script type="text/javascript" src="./app/router.js"></script>
+	<script type="text/javascript" src="./app/main.ctrl.js"></script>
+	<script type="text/javascript" src="./app/problem.ctrl.js"></script>
+	<script type="text/javascript" src="./app/service.js"></script>
+	
+	
+	<body ng-app="Hackday2019App" >
+		<div ng-controller="MainCtrl as ctrl" ng-cloak>
+			<md-content>
+				<md-toolbar class="md-hue-2">
+					<div class="md-toolbar-tools">
+						<h1>
+							Salesforce Trailcoder
+						</h1>
+						<span flex></span>
+					</div>
+				</md-toolbar>		
+			</md-content>
+		</div>
+		<ui-view></ui-view>
+	</body>
 </html>
