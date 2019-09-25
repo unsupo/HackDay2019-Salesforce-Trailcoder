@@ -10,6 +10,9 @@ angular.module('Hackday2019App').config(
 		url: '/problem/{index}',
 		templateUrl: './app/problem.html',
 		controller: 'ProblemCtrl'
+	}).state('login', {
+		url: '/login',
+		templateUrl: '/app/login/login.html'
 	})
 	
 })

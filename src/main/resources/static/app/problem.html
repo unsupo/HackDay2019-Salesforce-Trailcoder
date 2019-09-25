@@ -1,4 +1,21 @@
 <div ng-controller="ProblemCtrl as ctrl">
+	<div ng-controller="MainCtrl as ctrl" ng-cloak>
+			<md-content>
+				<md-toolbar class="md-hue-2" style="position: fixed">
+					<div class="md-toolbar-tools">
+						<h1>
+							Salesforce Trailcoder
+						</h1>
+						<span flex></span>
+						<h2>
+							{{ctrl.user}}&nbsp;
+							
+						</h2>
+						<span class="badge badge-info">{{ctrl.points}}</span>
+					</div>
+				</md-toolbar>
+			</md-content>
+		</div>
 	<main flex layout=row style="height:85%; margin-top: 40px; margin-bottom: 20px;">
 		<div ui-view flex=50 layout-fill layout-padding style="overflow-y: scroll; overflow-x: hidden;height:85%;margin-top: 25px;margin-bottom:1px">
 			<div style="background-color: #e1e1e1" ng-if="ctrl.status">

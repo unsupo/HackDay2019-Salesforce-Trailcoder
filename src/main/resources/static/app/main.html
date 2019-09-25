@@ -1,5 +1,22 @@
-<div ng-controller="MainCtrl as ctrl" ng-cloak style="margin-top: 40px">
-	<md-list layout-padding>
+<div ng-controller="MainCtrl as ctrl" ng-cloak>
+	<div ng-controller="MainCtrl as ctrl" ng-cloak>
+			<md-content>
+				<md-toolbar class="md-hue-2" style="position: fixed">
+					<div class="md-toolbar-tools">
+						<h1>
+							Salesforce Trailcoder
+						</h1>
+						<span flex></span>
+						<h2>
+							{{ctrl.user}}&nbsp;
+							
+						</h2>
+						<span class="badge badge-info">{{ctrl.points}}</span>
+					</div>
+				</md-toolbar>
+			</md-content>
+		</div>
+	<md-list layout-padding style="margin-top:50px">
 		<md-subheader>
 			<div layout="row">
 				<div flex="10">#</div>
@@ -13,7 +30,11 @@
 				<div flex="10" >{{problem.index}}</div>
 				<div flex="50">{{problem.title}}</div>
 				<div flex="33">{{problem.difficulty}}</div>
-				<div flex="10">No</div>
+				<div flex="10">
+					<div ng-if="ctrl.completed(problem.index-1)">
+						<img src="./app/login/images/icons/completed.png" width=32 height=32 style="margin-left:25px"></img>
+					</div>
+				</div>
 		</md-list-item>
 	</md-list>
 </div>
