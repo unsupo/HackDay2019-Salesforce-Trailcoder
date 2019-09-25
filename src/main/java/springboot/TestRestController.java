@@ -9,6 +9,7 @@ import utilities.ParseProblem;
 import utilities.database.Database;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -26,10 +27,12 @@ public class TestRestController {
     }
 
     @RequestMapping(value = "/sendcode", method = RequestMethod.POST)
-    public String sendCode(@RequestHeader("problemNum") String problemNum,
-                           @RequestHeader("code") String code){
+    public String sendCode(@RequestBody Map<String, Object> payload /*@RequestHeader("problemNum") String problemNum,
+                           @RequestHeader("code") String code*/){
         try {
-            return gson.toJson(ParseProblem.runTests(ParseProblem.parse(code,problemNum),problemNum));
+            String problemNum = payload.get("problemNum").toString();
+            return gson.toJson(ParseProblem.runTests(ParseProblem.parse(payload.get("code").toString(),
+                    problemNum),problemNum));
         } catch (Exception e) {
             return gson.toJson(e.getMessage());
         }
