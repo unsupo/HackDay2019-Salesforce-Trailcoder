@@ -1,11 +1,14 @@
-app.controller('MainCtrl', function($scope, Service, $timeout, $stateParams, $state){
+app.controller('MainCtrl', function($scope, Service, $timeout, $state){
 	var self = this;
-	self.status="";
+	self.test = 'TEST';
+	
 	self.user = localStorage.getItem('user');
-	self.index = $stateParams.index;
-	Service.getProblem(self.index).then(function(response){
-		self.problem = response;
-		self.solution = response.codeSample.trim();
+	
+	var map = {'Easy' : 1, 'Medium': 2, "Hard": 3};
+	
+	Service.getData().then(function(response){
+		self.problems = response;
+		self.index();
 		var points = 0;
 		for(var i=0;i<self.problems.length;i++){
 			if(localStorage.getItem(self.user+i)){
@@ -13,35 +16,32 @@ app.controller('MainCtrl', function($scope, Service, $timeout, $stateParams, $st
 			}
 		}
 		self.points = points
-		console.log(response);
 		$timeout(function(){
 			$scope.$apply();
-		});
-	});
-
-	self.solution = "class Solution{\n\n}";
-
-	self.submit = function(){
-		Service.submitSolution(self.solution, self.index).then(function(response){
-			self.status = response['data'];
-			if(self.status = 'Correct'){
-				localStorage.setItem(self.user+self.index, 'Done');
-			}
-			$timeout(function(){
-				$scope.$apply();
-			});
-		}, function(error){
-			console.log(error);
-			self.status = 'An error has occured'
 		})
-	};
+	})
+	
 
-	self.back = function(){
-		$state.go('main');
-	};
-});
-app.filter("trust", ['$sce', function($sce) {
-	return function(htmlCode){
-		return $sce.trustAsHtml(htmlCode);
+	
+	
+
+	self.index = function(){
+		for(var i=0;i<self.problems.length;i++){
+			self.problems[i].index = i+1;
+		}
 	}
-}]);
+	
+	self.completed = function(index){
+		if(localStorage.getItem(self.user+index)){
+			return true;
+		}
+		return false;
+	}
+	
+	self.goTo = function(index){
+		console.log(index);
+		$state.go("problem", {"index" : index})
+	}
+	
+
+})
