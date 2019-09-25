@@ -35,7 +35,12 @@ app.service('Service', function($http, $q){
 		},
 		submitSolution: function(text, index){
 			return $q(function(resolve, reject){
-				$http.get(encodeURI('/sendcode'+"?code="+text + '&' + "problemNum=" + index)).then(function(response){
+				$http.post('/sendcode',
+						{
+							'code': text,
+							'problemNum': index
+						}		
+				).then(function(response){
 					resolve(response);
 				}, function(error){
 					reject(error);
