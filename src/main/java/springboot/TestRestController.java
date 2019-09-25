@@ -2,6 +2,7 @@ package springboot;
 
 import com.google.gson.Gson;
 import objects.LeetCodeProblem;
+import org.jsoup.Jsoup;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,7 +22,13 @@ public class TestRestController {
         try {
             return gson.toJson(FileOptions.getAllFiles("leetcode_problems").stream().map(a-> {
                 try {
-                    return gson.fromJson(FileOptions.readFileIntoString(a), LeetCodeProblem.class);
+                    LeetCodeProblem problem = gson.fromJson(FileOptions.readFileIntoString(a), LeetCodeProblem.class);
+                    String html = Jsoup.parse(problem.getHtml()).select("div").stream().filter(b ->
+                            b.classNames().stream().filter(c -> c.contains("content") && c.contains("question-content"))
+                                    .collect(Collectors.toList()).size() > 0
+                    ).collect(Collectors.toList()).get(0).html();
+                    problem.setHtml(html);
+                    return problem;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

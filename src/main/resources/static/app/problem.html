@@ -1,28 +1,30 @@
 <div ng-controller="ProblemCtrl as ctrl">
-	<div layout=row  style="height:80%">
-		<div flex=50 layout-fill layout-padding>
+	<main flex layout=row style="height:100%; margin-top: 20px; margin-bottom: 20px">
+		<div ui-view flex=50 layout-fill layout-padding style="overflow-y: scroll; overflow-x: hidden">
+			<div style="background-color: #e1e1e1" hidden="{{ctrl.status.trim()}}">
+				<h1>
+					{{ctrl.status}}
+				</h1>
+			</div>
 			<h1>
 				{{ctrl.problem.title}}
 			</h1>
-			{{ctrl.problem.description}}
-			<div>
-			<h1>
-				{{ctrl.status}}
-			</h1>
-			</div>
+			<div ng-bind-html="ctrl.problem.html | trust"></div>
 		</div>
-		<div style="border-top-width: 0;border-right-width: 1px;border-right-style: solid;height: 100%;"></div>
-		<div flex=50 layout-fill style="height:100%" layout-padding>
+		<div style="border-top-width: 0;border-right-width: 1px;border-right-style: solid;min-height: 100%;"></div>
+		<div flex=50 layout-fill style="min-height:100%; margin-top: 20px; margin-bottom: 20px" layout-padding>
 			<textarea style="width: 100%;height:100%;resize: none" ng-model="ctrl.solution">{{ctrl.solution}}</textarea>
 		</div>
-	</div>
-	<md-divider></md-divider>
-	<div layout=row>
-		<div flex=100>
-			<md-button class="md-raised md-primary" ng-click="ctrl.back()">Back</md-button>
+	</main>
+	<footer style="position: fixed;bottom: 0;width: 100%; background-color: white">
+		<md-divider style="position: absolute;bottom: 50px;width: 100%;"></md-divider>
+		<div layout=row class="md-scroll-shrink">
+			<div flex=100>
+				<md-button class="md-raised md-primary" ng-click="ctrl.back()">Back</md-button>
+			</div>
+			<div flex=8>
+				<md-button class="md-raised md-primary" ng-click="ctrl.submit()">Submit Code </md-button>
+			</div>
 		</div>
-		<div flex=8>
-			<md-button class="md-raised md-primary" ng-click="ctrl.submit()">Submit Code </md-button>
-		</div>
-	</div>
+	</footer>
 </div>
