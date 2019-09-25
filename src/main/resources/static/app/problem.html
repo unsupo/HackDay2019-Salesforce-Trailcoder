@@ -1,7 +1,7 @@
 <div ng-controller="ProblemCtrl as ctrl">
 	<main flex layout=row style="height:100%; margin-top: 20px; margin-bottom: 20px">
 		<div ui-view flex=50 layout-fill layout-padding style="overflow-y: scroll; overflow-x: hidden">
-			<div style="background-color: #e1e1e1" hidden="{{ctrl.status.trim()}}">
+			<div style="background-color: #e1e1e1" ng-if="ctrl.status">
 				<h1>
 					{{ctrl.status}}
 				</h1>

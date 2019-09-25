@@ -1,5 +1,6 @@
 app.controller('ProblemCtrl', function($scope, Service, $timeout, $stateParams, $state){
 	var self = this;
+	self.status="";
 	self.index = $stateParams.index;
 	Service.getProblem(self.index).then(function(response){
 		self.problem = response;
