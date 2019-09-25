@@ -22,7 +22,7 @@ public class Scraper {
         String dir = "leetcode_problems";
         new File(dir).mkdir();
         Gson gson = new Gson();
-        Scraper s = new Scraper("theleetcoder","password");
+        Scraper s = new Scraper("username","password");
         List<LeetCodeProblem> leetCodeProblems = new ArrayList<>();
         List<String> problems = FileOptions.readFileIntoListString("problems.txt");
         List<String> premiumProblems = FileOptions.readFileIntoListString("premium-problems.txt");

@@ -9,12 +9,12 @@ app.controller('ProblemCtrl', function($scope, Service, $timeout, $stateParams, 
 			$scope.$apply();
 		});
 	})
-	
+
 	self.solution = "class Solution{\n\n}";
-	
+
 	self.submit = function(){
 		Service.submitSolution(self.solution, self.index).then(function(response){
-			self.status = response;
+			self.status = response['data'];
 			$timeout(function(){
 				$scope.$apply();
 			});
@@ -23,7 +23,7 @@ app.controller('ProblemCtrl', function($scope, Service, $timeout, $stateParams, 
 			self.status = 'Oopsie Doopsie'
 		})
 	}
-	
+
 	self.back = function(){
 		$state.go('main');
 	}
