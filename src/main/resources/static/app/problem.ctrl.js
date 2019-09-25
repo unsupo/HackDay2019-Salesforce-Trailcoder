@@ -30,13 +30,13 @@ app.controller('ProblemCtrl', function ($scope, Service, $timeout, $stateParams,
             self.loading = false;
             if (self.status === 'Correct') {
                 localStorage.setItem(self.user + self.index, 'Done');
+                self.completed = 'Done'
                 Service.getPoints(self.user).then(function (response) {
                     self.points = response;
                     $timeout(function () {
                         $scope.$apply();
                     });
                 });
-                self.completed = 'Done'
             }
             $timeout(function () {
                 $scope.$apply();
