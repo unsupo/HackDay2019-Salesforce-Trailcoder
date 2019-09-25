@@ -41,7 +41,17 @@ app.service('Service', function($http, $q){
 					reject(error);
 				})
 			}
-		)}
+		)},
+		getPoints: function(user){
+			var points = 0;
+			var length = 100;
+			for(var i=0;i<length;i++){
+				if(localStorage.getItem(self.user+i)){
+					points+=100*map[self.problems[i].difficulty];
+				}
+			}
+			return points;
+		}
 	}
 	return functions;
 })

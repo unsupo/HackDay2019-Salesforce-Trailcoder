@@ -6,16 +6,12 @@ app.controller('MainCtrl', function($scope, Service, $timeout, $state){
 	
 	var map = {'Easy' : 1, 'Medium': 2, "Hard": 3};
 	
+	
+	self.points = Service.getPoints(self.user);
 	Service.getData().then(function(response){
 		self.problems = response;
 		self.index();
 		var points = 0;
-		for(var i=0;i<self.problems.length;i++){
-			if(localStorage.getItem(self.user+i)){
-				points+=100*map[self.problems[i].difficulty];
-			}
-		}
-		self.points = points
 		$timeout(function(){
 			$scope.$apply();
 		})
