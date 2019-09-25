@@ -20,20 +20,7 @@ public class TestRestController {
     @RequestMapping("/getalldata")
     public String getAllData() {
         try {
-            return gson.toJson(FileOptions.getAllFiles("leetcode_problems").stream().map(a-> {
-                try {
-                    LeetCodeProblem problem = gson.fromJson(FileOptions.readFileIntoString(a), LeetCodeProblem.class);
-                    String html = Jsoup.parse(problem.getHtml()).select("div").stream().filter(b ->
-                            b.classNames().stream().filter(c -> c.contains("content") && c.contains("question-content"))
-                                    .collect(Collectors.toList()).size() > 0
-                    ).collect(Collectors.toList()).get(0).html();
-                    problem.setHtml(html);
-                    return problem;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                return null;
-            }).collect(Collectors.toList()));
+            return gson.toJson(ParseProblem.getAllLeetCodeProblems());
 //            return gson.toJson(
 //                    Database.getExistingDatabaseConnection().executeQuery("select * from problems"));
         } catch (Exception e) {
@@ -45,7 +32,7 @@ public class TestRestController {
     public String sendCode(@RequestParam("problemNum") String problemNum,
                            @RequestParam("code") String code){
         try {
-            return ParseProblem.run(ParseProblem.parse(code));
+            return gson.toJson(ParseProblem.runTests(ParseProblem.parse(code,problemNum),problemNum));
         } catch (Exception e) {
             return e.getMessage();
         }
