@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -24,9 +25,26 @@ public class ParseProblem {
         System.out.println(
             runTests(
                 parse("class Solution { \n" +
-                        "     public int totalNQueens(int a) { \n" +
-                        "          return 2;\n" +
-                        "     } \n" +
+                        "     public int totalNQueens(int n) {\n" +
+                        "        if (n <= 0)\n" +
+                        "            return n == 0 ? 0 : 1;\n" +
+                        "        boolean [] rows = new boolean[n], diags = new boolean[2 * n], antiDiags = new boolean[2 * n];\n" +
+                        "        return solve(0, n, rows, antiDiags, diags);\n" +
+                        "    }\n" +
+                        "    \n" +
+                        "    private int solve(int col, int n, boolean[] rows, boolean[] antiDiags, boolean[] diags) {\n" +
+                        "        if (col == n)\n" +
+                        "            return 1;\n" +
+                        "        int sum = 0;\n" +
+                        "        for (int row = 0; row < n; row++) {\n" +
+                        "            if (rows[row] || antiDiags[row - col + n] || diags[row + col])\n" +
+                        "                continue;\n" +
+                        "            rows[row] = antiDiags[row - col + n] = diags[row + col] = true;\n" +
+                        "            sum += solve(col + 1, n, rows, antiDiags, diags);\n" +
+                        "            rows[row] = antiDiags[row - col + n] = diags[row + col] = false;\n" +
+                        "        }\n" +
+                        "        return sum;\n" +
+                        "    } \n" +
                         " }", 76+"")
                     , 76+"")
         );
@@ -154,7 +172,7 @@ public class ParseProblem {
             String yourAnswer = run(String.format(parsed, inputs));
             if(!yourAnswer.equals(stringify(testCase1.getOutput())))
                 throw new Exception(String.format("Failed Test Case: %s, expected %s", inputs, testCase1.getOutput().toString())+
-                        "\n"+yourAnswer);
+                        "\nYour Answer: "+yourAnswer);
         }
         return "Correct";
     }

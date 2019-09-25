@@ -3,10 +3,7 @@ package springboot;
 import com.google.gson.Gson;
 import objects.LeetCodeProblem;
 import org.jsoup.Jsoup;
-import org.springframework.web.bind.annotation.RequestHeader;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import utilities.FileOptions;
 import utilities.ParseProblem;
 import utilities.database.Database;
@@ -28,9 +25,9 @@ public class TestRestController {
         }
     }
 
-    @RequestMapping("/sendcode")
-    public String sendCode(@RequestParam("problemNum") String problemNum,
-                           @RequestParam("code") String code){
+    @RequestMapping(value = "/sendcode", method = RequestMethod.POST)
+    public String sendCode(@RequestHeader("problemNum") String problemNum,
+                           @RequestHeader("code") String code){
         try {
             return gson.toJson(ParseProblem.runTests(ParseProblem.parse(code,problemNum),problemNum));
         } catch (Exception e) {
