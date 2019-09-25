@@ -34,7 +34,7 @@ public class TestRestController {
         try {
             return gson.toJson(ParseProblem.runTests(ParseProblem.parse(code,problemNum),problemNum));
         } catch (Exception e) {
-            return e.getMessage();
+            return gson.toJson(e.getMessage());
         }
     }
 }
