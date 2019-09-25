@@ -18,17 +18,22 @@
 		</div>
 	<main flex layout=row style="height:85%; margin-top: 40px; margin-bottom: 20px;">
 		<div ui-view flex=50 layout-fill layout-padding style="overflow-y: scroll; overflow-x: hidden;height:85%;margin-top: 25px;margin-bottom:1px">
-			<div style="background-color:green" ng-if="ctrl.status == correct">
-				<h1>
-					{{ctrl.status}}
-				</h1>
+			<div style="background-color:yellow; border-radius:5px;text-align: center" ng-if="ctrl.loading">
+			      Processing...
 			</div>
-			<div style="background-color:red" ng-if="ctrl.status && ctrl.status != correct">
+			<div style="background-color:green; border-radius:5px;text-align: center" ng-if="ctrl.status == 'Correct'">
+				<h1>{{ctrl.status}}</h1>
+			</div>
+			<div style="background-color:red;border-radius:5px;white-space: pre-line" ng-if="ctrl.status && ctrl.status != 'Correct'">
 					{{ctrl.status}}
 			</div>
-			<h1>
-				{{ctrl.problem.title}}
-			</h1>
+			<div layout="row">
+				<h1>{{ctrl.problem.title}} </h1>
+				<span flex></span>
+				<div  ng-if="ctrl.completed=='Done'" style="margin-top:9px">
+					<img src= "./app/login/images/icons/completed.png" width=32 height=32></img>
+				</div>
+			</div>
 			<div ng-bind-html="ctrl.problem.html | trust"></div>
 		</div>
 		<div flex=50 layout-fill style="min-height:100%; margin-top: 25px; margin-bottom: 20px" layout-padding>

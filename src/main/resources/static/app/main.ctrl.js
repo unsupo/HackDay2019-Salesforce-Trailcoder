@@ -4,10 +4,15 @@ app.controller('MainCtrl', function($scope, Service, $timeout, $state){
 
 	self.user = localStorage.getItem('user');
 
-	var map = {'Easy' : 1, 'Medium': 2, "Hard": 3};
 
 
-	self.points = Service.getPoints(self.user);
+
+	Service.getPoints(self.user).then(function(response){
+		self.points = response;
+		$timeout(function(){
+			$scope.$apply();
+		});
+	});
 	Service.getData().then(function(response){
 		self.problems = response;
 		self.index();

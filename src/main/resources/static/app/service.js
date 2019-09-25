@@ -2,6 +2,7 @@ app.service('Service', function($http, $q){
 	
 	var url = 'fakeurlplsno';
 	var data;
+	var self = this;
 	var functions = {
 		getData : function(){
 			return $q(function(resolve, reject){
@@ -12,13 +13,7 @@ app.service('Service', function($http, $q){
 						data = response.data;
 						resolve(data);
 					}, function(error){
-						//reject(error);
-						data = [{	'title' : 'Something Something', 
-							'difficulty' : 'Impossible', 
-							'description' : 'This gonna be some long ass text explaining the problem. Which is gonna be some old bullshit by the way. Like how do you stack N cans of beans so that no two of the same kind twice. Also there are M types of beans and also can you make this run in less then a second. For one million beans. Ooooooh watch out you better be efficient with your algorithm or you are not gonna pass.'
-						 }
-						];
-						resolve(data);
+						reject(error);
 					})
 				}
 			});
@@ -35,9 +30,10 @@ app.service('Service', function($http, $q){
 		},
 		submitSolution: function(text, index){
 			return $q(function(resolve, reject){
+				
 				$http.post('/sendcode',
 						{
-							'code': text,
+							'code': encodeURIComponent(text),
 							'problemNum': index
 						}		
 				).then(function(response){
@@ -48,14 +44,21 @@ app.service('Service', function($http, $q){
 			}
 		)},
 		getPoints: function(user){
-			var points = 0;
-			var length = 100;
-			for(var i=0;i<length;i++){
-				if(localStorage.getItem(self.user+i)){
-					points+=100*map[self.problems[i].difficulty];
-				}
-			}
-			return points;
+			return $q(function(resolve, reject){
+				var length = 100;
+				functions.getData().then(function(response){
+					var problems = response;
+					var points = 0;
+					var map = {'Easy' : 1, 'Medium': 2, "Hard": 3};
+					self.points = 0
+					for(var i=0;i<length;i++){
+						if(localStorage.getItem(user+i)){
+							points+=100*map[problems[i].difficulty];
+						}
+					}
+					resolve(points);
+				})
+			})
 		}
 	}
 	return functions;
