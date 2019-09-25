@@ -32,7 +32,7 @@ public class TestRestController {
     public String sendCode(@RequestParam("problemNum") String problemNum,
                            @RequestParam("code") String code){
         try {
-            return gson.toJson(ParseProblem.run(ParseProblem.parse(code,problemNum)));
+            return gson.toJson(ParseProblem.runTests(ParseProblem.parse(code,problemNum),problemNum));
         } catch (Exception e) {
             return e.getMessage();
         }

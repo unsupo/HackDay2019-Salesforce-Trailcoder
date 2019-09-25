@@ -146,7 +146,7 @@ public class ParseProblem {
         return null;
     }
 
-    private static String runTests(String parsed, String problemNum) throws Exception {
+    public static String runTests(String parsed, String problemNum) throws Exception {
         LeetCodeProblemTestCases testCase = testCasesHashMap.get(problemNum);
         for(TestCase testCase1: testCase.getTestCases()) {
             String inputs = Arrays.asList(testCase1.getInputs()).stream()
