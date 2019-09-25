@@ -21,7 +21,7 @@ app.controller('ProblemCtrl', function($scope, Service, $timeout, $stateParams, 
 			});
 		}, function(error){
 			console.log(error);
-			self.status = 'Oopsie Doopsie'
+			self.status = 'An error has occured'
 		})
 	};
 
