@@ -1,4 +1,4 @@
-app.controller('ProblemCtrl', function($scope, Service, $timeout, $stateParams, $state){
+app.controller('MainCtrl', function($scope, Service, $timeout, $stateParams, $state){
 	var self = this;
 	self.status="";
 	self.user = localStorage.getItem('user');
